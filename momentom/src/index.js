@@ -1,13 +1,61 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+function Weather() {
+  return (
+    <div className="weather">
+      <span>날씨 자리</span>
+    </div>
+  );
+}
+
+function Time() {
+  return (
+    <div className="time">
+      <span>현재 시간</span>
+    </div>
+  );
+}
+
+function SearchBar() {
+  return (
+    <div class="searchBar">
+      <input type="text" />
+    </div>
+  );
+}
+
+function TodoList() {
+  return (
+    <div class="todoList">
+      <Todo />
+    </div>
+  );
+}
+
+function Todo() {
+  return (
+    <div className="todo">
+      할 일
+    </div>
+  );
+}
+
+function Momentom() {
+  return(
+    <div className="momentom">
+      <Weather />
+      <Time />
+      <SearchBar />
+      <TodoList />
+    </div>
+  )
+}
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Momentom />,
   document.getElementById('root')
 );
 
