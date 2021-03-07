@@ -55,6 +55,15 @@ function SearchBar() {
   );
 }
 
+function Lists() {
+  return (
+    <div>
+      <TodoList />
+      <DoneList />
+    </div>
+  )
+}
+
 function TodoList() {
   return (
     <div className="todoList">
@@ -71,13 +80,29 @@ function Todo() {
   );
 }
 
+function DoneList() {
+  return (
+    <div className="doneList">
+      <Done />
+    </div>
+  );
+}
+
+function Done() {
+  return (
+    <div className="done">
+      한 일
+    </div>
+  )
+}
+
 function Momentom() {
   return(
     <div className="momentom">
       <Weather />
       <Time />
       <SearchBar />
-      <TodoList />
+      <Lists />
     </div>
   )
 }
