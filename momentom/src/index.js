@@ -11,17 +11,45 @@ function Weather() {
   );
 }
 
-function Time() {
-  return (
-    <div className="time">
-      <span>현재 시간</span>
-    </div>
-  );
+class Time extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: new Date()
+    }
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        time: new Date()
+      })
+    }, 1000);
+  }
+
+  render() {
+    let hours = this.state.time.getHours();
+    let minutes = this.state.time.getMinutes();
+
+    if (parseInt(hours) < 10) {
+      hours = '0' + hours;
+    }
+
+    if (parseInt(minutes) < 10) {
+      minutes = '0' + minutes;
+    }
+
+    return (
+      <div className="time">
+        {hours + ':' + minutes}
+      </div>
+    );
+  }
 }
 
 function SearchBar() {
   return (
-    <div class="searchBar">
+    <div className="searchBar">
       <input type="text" />
     </div>
   );
@@ -29,7 +57,7 @@ function SearchBar() {
 
 function TodoList() {
   return (
-    <div class="todoList">
+    <div className="todoList">
       <Todo />
     </div>
   );
