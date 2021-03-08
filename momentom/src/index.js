@@ -47,12 +47,39 @@ class Time extends React.Component {
   }
 }
 
-function SearchBar() {
-  return (
-    <div className="searchBar">
-      <input type="text" />
-    </div>
-  );
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      value: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      value: event.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.handleSubmit(this.state.value);
+    this.setState({
+      value: ''
+    });
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" onChange={this.handleChange} value={this.state.value} />
+      </form>
+    );
+  }
 }
 
 function Lists() {
@@ -96,19 +123,38 @@ function Done() {
   )
 }
 
-function Momentom() {
-  return(
-    <div className="momentom">
-      <Weather />
-      <Time />
-      <SearchBar />
-      <Lists />
-    </div>
-  )
+class Momentum extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inputValue: ''
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  } 
+
+  handleSubmit(value) {
+    console.log(value);
+    this.setState({
+      inputValue: value
+    });
+  }
+
+  render() {
+    return(
+      <div className="momentum">
+        <Weather />
+        <Time />
+        <SearchBar handleSubmit={this.handleSubmit}/>
+        <Lists />
+      </div>
+    )
+  }
 }
 
 ReactDOM.render(
-  <Momentom />,
+  <Momentum />,
   document.getElementById('root')
 );
 
