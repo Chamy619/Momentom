@@ -50,59 +50,54 @@ class Time extends React.Component {
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
-      value: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
+  
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      value: event.target.value
-    });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.handleSubmit(this.state.value);
-    this.setState({
-      value: ''
-    });
+    this.props.handleSubmit(event.target.childNodes[0].value);
+    event.target.childNodes[0].value = '';
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" onChange={this.handleChange} value={this.state.value} />
+        <input type="text" value={this.props.inputValue} />
       </form>
     );
   }
 }
 
-function Lists() {
+function Lists(props) {
   return (
     <div>
-      <TodoList />
+      <TodoList todoList={props.todoList} />
       <DoneList />
     </div>
   )
 }
 
-function TodoList() {
+function TodoList(props) {
+  console.log(props.todoList);
+  const todoList = [];
+  if (props.todoList.length > 0) {
+    props.todoList.forEach(todo => {
+      todoList.push(<Todo key={todo} todo={todo} />);
+    });
+  }
+  
   return (
     <div className="todoList">
-      <Todo />
+      {todoList}
     </div>
   );
 }
 
-function Todo() {
+function Todo(props) {
   return (
     <div className="todo">
-      할 일
+      {props.todo}
     </div>
   );
 }
@@ -128,16 +123,19 @@ class Momentum extends React.Component {
     super(props);
 
     this.state = {
-      inputValue: ''
+      inputValue: '',
+      todoList: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   } 
 
   handleSubmit(value) {
-    console.log(value);
+    const todoList = this.state.todoList;
+    todoList.push(value);
     this.setState({
-      inputValue: value
+      inputValue: value,
+      todoList: todoList
     });
   }
 
@@ -147,7 +145,7 @@ class Momentum extends React.Component {
         <Weather />
         <Time />
         <SearchBar handleSubmit={this.handleSubmit}/>
-        <Lists />
+        <Lists todoList={this.state.todoList} />    
       </div>
     )
   }
