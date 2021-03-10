@@ -89,6 +89,7 @@ function TodoList(props) {
   
   return (
     <div className="todoList">
+      <h3>Todo List</h3>
       {todoList}
     </div>
   );
@@ -105,6 +106,7 @@ function Todo(props) {
 function DoneList() {
   return (
     <div className="doneList">
+      <h3>Done List</h3>
       <Done />
     </div>
   );
