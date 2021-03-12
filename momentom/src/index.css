@@ -14,10 +14,10 @@ code {
 
 .todoList {
   width: 50%;
-  display: inline-block;
+  float: left;
 }
 
 .doneList {
   width: 50%;
-  display: inline-block;
+  float: left;
 }

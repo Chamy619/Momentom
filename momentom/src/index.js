@@ -72,18 +72,17 @@ class SearchBar extends React.Component {
 function Lists(props) {
   return (
     <div>
-      <TodoList todoList={props.todoList} />
+      <TodoList todoList={props.todoList} removeTodo={props.removeTodo} />
       <DoneList />
     </div>
   )
 }
 
 function TodoList(props) {
-  console.log(props.todoList);
   const todoList = [];
   if (props.todoList.length > 0) {
     props.todoList.forEach(todo => {
-      todoList.push(<Todo key={todo} todo={todo} />);
+      todoList.push(<Todo key={todo} todo={todo} removeTodo={props.removeTodo} />);
     });
   }
   
@@ -95,12 +94,24 @@ function TodoList(props) {
   );
 }
 
-function Todo(props) {
-  return (
-    <div className="todo">
-      {props.todo}
-    </div>
-  );
+class Todo extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    this.props.removeTodo(event.target.id);
+  }
+
+  render() {
+    return (
+      <div className="todo" id={this.props.todo} onClick={this.handleClick}>
+        {this.props.todo}
+      </div>
+    );
+  }
 }
 
 function DoneList() {
@@ -130,6 +141,7 @@ class Momentum extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
   } 
 
   handleSubmit(value) {
@@ -141,13 +153,21 @@ class Momentum extends React.Component {
     });
   }
 
+  removeTodo(value) {
+    let todoList = this.state.todoList;
+    todoList = todoList.filter(todo => todo !== value);
+    this.setState({
+      todoList: todoList
+    });
+  }
+
   render() {
     return(
       <div className="momentum">
         <Weather />
         <Time />
         <SearchBar handleSubmit={this.handleSubmit}/>
-        <Lists todoList={this.state.todoList} />    
+        <Lists todoList={this.state.todoList} removeTodo={this.removeTodo} />    
       </div>
     )
   }
