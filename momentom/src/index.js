@@ -137,7 +137,8 @@ class Momentum extends React.Component {
 
     this.state = {
       inputValue: '',
-      todoList: []
+      todoList: [],
+      alreadyExist: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -146,11 +147,19 @@ class Momentum extends React.Component {
 
   handleSubmit(value) {
     const todoList = this.state.todoList;
-    todoList.push(value);
-    this.setState({
-      inputValue: value,
-      todoList: todoList
-    });
+    
+    if (todoList.indexOf(value) === -1) {
+      todoList.push(value);
+      this.setState({
+        inputValue: value,
+        todoList: todoList,
+        alreadyExist: false
+      });
+    } else {
+      this.setState({
+        alreadyExist: true
+      });
+    }
   }
 
   removeTodo(value) {
@@ -162,11 +171,13 @@ class Momentum extends React.Component {
   }
 
   render() {
+    const alreadyExistMessage = this.state.alreadyExist ? '이미 존재합니다' : '';
     return(
       <div className="momentum">
         <Weather />
         <Time />
         <SearchBar handleSubmit={this.handleSubmit}/>
+        <span className="alertMessage">{alreadyExistMessage}</span>
         <Lists todoList={this.state.todoList} removeTodo={this.removeTodo} />    
       </div>
     )

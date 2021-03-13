@@ -21,3 +21,7 @@ code {
   width: 50%;
   float: left;
 }
+
+.alertMessage {
+  color: red;
+}
