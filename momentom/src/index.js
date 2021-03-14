@@ -99,28 +99,52 @@ class Todo extends React.Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
+    //this.dragStart = this.dragStart.bind(this);
   }
 
   handleClick(event) {
     this.props.removeTodo(event.target.id);
   }
 
+  dragStart(event) {
+    console.log('dragStart');
+  }
+
+  dragging(event) {
+    console.log('dragging');
+  }
+
   render() {
     return (
-      <div className="todo" id={this.props.todo} onClick={this.handleClick}>
+      <div className="todo" draggable="true" onDragStart={this.dragStart} onDrag={this.dragging} id={this.props.todo} onClick={this.handleClick}>
         {this.props.todo}
       </div>
     );
   }
 }
 
-function DoneList() {
-  return (
-    <div className="doneList">
+class DoneList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  dropEvent(event) {
+    console.log('onDrop');
+  }
+
+  dragOver(event) {
+    event.preventDefault();
+    console.log('drag over');
+  }
+
+  render() {
+    return (
+      <div className="doneList" droppable="true" onDrop={this.dropEvent} onDragOver={this.dragOver}>
       <h3>Done List</h3>
       <Done />
     </div>
-  );
+    );
+  }
 }
 
 function Done() {
