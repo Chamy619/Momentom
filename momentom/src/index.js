@@ -107,16 +107,17 @@ class Todo extends React.Component {
   }
 
   dragStart(event) {
-    console.log('dragStart');
+    event.dataTransfer.setData('targetId', event.target.id);
+    //console.log('dragStart', event);
   }
 
-  dragging(event) {
-    console.log('dragging');
-  }
+  // dragging(event) {
+  //   //console.log('dragging', event);
+  // }
 
   render() {
     return (
-      <div className="todo" draggable="true" onDragStart={this.dragStart} onDrag={this.dragging} id={this.props.todo} onClick={this.handleClick}>
+      <div className="todo" draggable="true" /*onDrag={this.dragging}*/ onDragStart={this.dragStart} id={this.props.todo} onClick={this.handleClick}>
         {this.props.todo}
       </div>
     );
@@ -129,12 +130,13 @@ class DoneList extends React.Component {
   }
 
   dropEvent(event) {
-    console.log('onDrop');
+    console.log(event.dataTransfer.getData('targetId'));
+    //console.log('onDrop', event);
   }
 
   dragOver(event) {
     event.preventDefault();
-    console.log('drag over');
+    //console.log('drag over', event);
   }
 
   render() {
@@ -162,6 +164,7 @@ class Momentum extends React.Component {
     this.state = {
       inputValue: '',
       todoList: [],
+      doneList: [],
       alreadyExist: false
     };
 
