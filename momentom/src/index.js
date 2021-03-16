@@ -73,7 +73,7 @@ function Lists(props) {
   return (
     <div>
       <TodoList todoList={props.todoList} removeTodo={props.removeTodo} />
-      <DoneList />
+      <DoneList doneList={props.doneList} removeTodo={props.removeTodo} addDone={props.addDone} removeDone={props.removeDone} />
     </div>
   )
 }
@@ -127,10 +127,13 @@ class Todo extends React.Component {
 class DoneList extends React.Component {
   constructor(props) {
     super(props);
+
+    this.dropEvent = this.dropEvent.bind(this);
   }
 
   dropEvent(event) {
-    console.log(event.dataTransfer.getData('targetId'));
+    this.props.addDone(event.dataTransfer.getData('targetId'));
+    this.props.removeTodo(event.dataTransfer.getData('targetId'));
     //console.log('onDrop', event);
   }
 
@@ -140,19 +143,30 @@ class DoneList extends React.Component {
   }
 
   render() {
+    const doneList = [];
+    if (this.props.doneList.length > 0) {
+      this.props.doneList.forEach((done) => {
+        doneList.push(<Done key={done} id={done} value={done} removeDone={this.props.removeDone} />);
+      });
+    }
+
     return (
       <div className="doneList" droppable="true" onDrop={this.dropEvent} onDragOver={this.dragOver}>
       <h3>Done List</h3>
-      <Done />
+      {doneList}
     </div>
     );
   }
 }
 
-function Done() {
+function Done(props) {
+  function removeDone(event) {
+    props.removeDone(event.target.id);
+  }
+
   return (
-    <div className="done">
-      한 일
+    <div className="done" id={props.id} onClick={removeDone}>
+      {props.value}
     </div>
   )
 }
@@ -170,6 +184,8 @@ class Momentum extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
+    this.addDone = this.addDone.bind(this);
+    this.removeDone = this.removeDone.bind(this);
   } 
 
   handleSubmit(value) {
@@ -197,6 +213,22 @@ class Momentum extends React.Component {
     });
   }
 
+  addDone(value) {
+    const doneList = this.state.doneList;
+    doneList.push(value);
+    this.setState({
+      doneList: doneList
+    });
+  }
+
+  removeDone(value) {
+    let doneList = this.state.doneList;
+    doneList = doneList.filter((done) => done !== value);
+    this.setState({
+      doneList: doneList
+    });
+  }
+
   render() {
     const alreadyExistMessage = this.state.alreadyExist ? '이미 존재합니다' : '';
     return(
@@ -205,7 +237,7 @@ class Momentum extends React.Component {
         <Time />
         <SearchBar handleSubmit={this.handleSubmit}/>
         <span className="alertMessage">{alreadyExistMessage}</span>
-        <Lists todoList={this.state.todoList} removeTodo={this.removeTodo} />    
+        <Lists todoList={this.state.todoList} doneList={this.state.doneList} removeTodo={this.removeTodo} addDone={this.addDone} removeDone={this.removeDone} />    
       </div>
     )
   }
