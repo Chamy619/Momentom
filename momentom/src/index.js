@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import Input from '@material-ui/core/Input';
 
 function Weather() {
   return (
@@ -63,7 +64,7 @@ class SearchBar extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" value={this.props.inputValue} />
+        <Input placeholder="Enter TODO" type="text" value={this.props.inputValue} />
       </form>
     );
   }
