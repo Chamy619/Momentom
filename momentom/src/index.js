@@ -51,20 +51,33 @@ class Time extends React.Component {
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-  
+
+    this.state = {
+      inputValue: ''
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.handleSubmit(event.target.childNodes[0].value);
-    event.target.childNodes[0].value = '';
+    this.props.handleSubmit(this.state.inputValue);
+    this.setState({
+      inputValue: ''
+    });
+  }
+
+  handleChange(event) {
+    this.setState({
+      inputValue: event.target.value
+    });
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <Input placeholder="Enter TODO" type="text" value={this.props.inputValue} />
+        <Input placeholder="Enter TODO" type="text" value={this.state.inputValue} onChange={this.handleChange} />
       </form>
     );
   }
