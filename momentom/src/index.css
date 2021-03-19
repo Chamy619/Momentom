@@ -13,13 +13,22 @@ code {
 }
 
 .todoList {
-  width: 50%;
+  width: 40%;
+  height: 500px;
   float: left;
+  border: 1px solid blue;
+  text-align: center;
+  margin-top: 30px;
+  margin-right: 20px;
 }
 
 .doneList {
-  width: 50%;
+  width: 40%;
+  height: 500px;
   float: left;
+  border: 1px solid red;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .alertMessage {
