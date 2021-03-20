@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url(https://source.unsplash.com/category/nature/weekly);
 }
 
 code {
@@ -33,4 +34,16 @@ code {
 
 .alertMessage {
   color: red;
+}
+
+.todo {
+  margin: 0 5px 0 5px;
+  border: 1px solid #333;
+  background-color: rgba(252, 251, 245, 0.1);
+}
+
+.done {
+  margin: 0 5px 0 5px;
+  border: 1px solid #333;
+  background-color: rgba(252, 251, 245, 0.1);
 }
