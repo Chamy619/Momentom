@@ -4,12 +4,42 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Input from '@material-ui/core/Input';
 
-function Weather() {
-  return (
-    <div className="weather">
-      <span>날씨 자리</span>
-    </div>
-  );
+class Weather extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loc: '위치를 확인할 수 없습니다.'
+    }
+  }
+
+  componentDidMount() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        fetch(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?input_coord=WGS84&output_coord=WGS84&y=${latitude}&x=${longitude}`, {
+          headers: {
+            Authorization: 'KakaoAK d9a42fd2b9cf0e46f42c6d65a28d793b'
+          }
+        })
+        .then(response => response.json())
+        .then(geoData => {
+          this.setState({
+            loc: geoData.documents[1].address_name
+          });
+        });
+      });
+    }
+  }
+
+  render() {
+    return (
+      <div className="weather">
+        <span>{this.state.loc} 날씨 자리</span>
+      </div>
+    );
+  } 
 }
 
 class Time extends React.Component {
