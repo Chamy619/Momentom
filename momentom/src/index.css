@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding: 2rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -13,47 +14,46 @@ code {
     monospace;
 }
 
-.todoList {
-  width: 40%;
-  height: 500px;
-  float: left;
-  border: 1px solid blue;
-  text-align: center;
-  margin-top: 30px;
-  margin-right: 20px;
+.weather {
+  text-align: right;
 }
 
-.doneList {
-  width: 40%;
-  height: 500px;
-  float: left;
-  border: 1px solid red;
+.time {
+  text-align: center;
+}
+
+.serachBar {
+  text-align: center;
+}
+
+.listBox {
+  width: 48%;
+  height: 50rem;
   text-align: center;
   margin-top: 30px;
+}
+
+.listBox.todoList {
+  float: left;
+  border: 1px solid blue;
+}
+
+.listBox.doneList {
+  float: right;
+  border: 1px solid red;
 }
 
 .alertMessage {
   color: red;
 }
 
-.todo {
+.content {
   margin: 0 5px 0 5px;
   border: 1px solid #333;
   background-color: rgba(252, 251, 245, 0.1);
 }
 
-.todo:hover {
-  cursor: pointer;
-  background-color: rgba(254, 254, 240, 0.3);
-}
-
-.done {
-  margin: 0 5px 0 5px;
-  border: 1px solid #333;
-  background-color: rgba(252, 251, 245, 0.1);
-}
-
-.done:hover {
+.content:hover {
   cursor: pointer;
   background-color: rgba(254, 254, 240, 0.3);
 }

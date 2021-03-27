@@ -25,9 +25,12 @@ class Weather extends React.Component {
         })
         .then(response => response.json())
         .then(geoData => {
-          this.setState({
-            loc: geoData.documents[1].address_name
-          });
+          if (geoData.documents) {
+            this.setState({
+              loc: geoData.documents[1].address_name
+            });
+          }
+          
         });
       });
     }
@@ -36,7 +39,8 @@ class Weather extends React.Component {
   render() {
     return (
       <div className="weather">
-        <span>{this.state.loc} 날씨 자리</span>
+        <span>{this.state.loc} <br />
+        날씨 자리</span>
       </div>
     );
   } 
@@ -106,8 +110,8 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Input placeholder="Enter TODO" type="text" value={this.state.inputValue} onChange={this.handleChange} />
+      <form className="searchBar" onSubmit={this.handleSubmit}>
+        <Input placeholder="Enter TODO" type="text" fullWidth={true} inputProps={{style: {textAlign: 'center'}}} value={this.state.inputValue} onChange={this.handleChange} />
       </form>
     );
   }
@@ -131,7 +135,7 @@ function TodoList(props) {
   }
   
   return (
-    <div className="todoList">
+    <div className="listBox todoList">
       <h3>Todo List</h3>
       {todoList}
     </div>
@@ -161,7 +165,7 @@ class Todo extends React.Component {
 
   render() {
     return (
-      <div className="todo" draggable="true" /*onDrag={this.dragging}*/ onDragStart={this.dragStart} id={this.props.todo} onClick={this.handleClick}>
+      <div className="content todo" draggable="true" /*onDrag={this.dragging}*/ onDragStart={this.dragStart} id={this.props.todo} onClick={this.handleClick}>
         {this.props.todo}
       </div>
     );
@@ -195,7 +199,7 @@ class DoneList extends React.Component {
     }
 
     return (
-      <div className="doneList" droppable="true" onDrop={this.dropEvent} onDragOver={this.dragOver}>
+      <div className="listBox doneList" droppable="true" onDrop={this.dropEvent} onDragOver={this.dragOver}>
       <h3>Done List</h3>
       {doneList}
     </div>
@@ -209,7 +213,7 @@ function Done(props) {
   }
 
   return (
-    <div className="done" id={props.id} onClick={removeDone}>
+    <div className="content done" id={props.id} onClick={removeDone}>
       {props.value}
     </div>
   )
