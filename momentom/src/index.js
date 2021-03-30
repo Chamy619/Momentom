@@ -50,8 +50,14 @@ class Time extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: new Date()
+      time: new Date(),
+      showFullHour: true,
+      showTimeMenu: false
     }
+
+    this.changeTimeFormat = this.changeTimeFormat.bind(this);
+    this.showTimeMenu = this.showTimeMenu.bind(this);
+    this.hideTimeMenu = this.hideTimeMenu.bind(this);
   }
 
   componentDidMount() {
@@ -62,9 +68,31 @@ class Time extends React.Component {
     }, 1000);
   }
 
+  showTimeMenu() {
+    this.setState({
+      showTimeMenu: true
+    });
+  }
+
+  hideTimeMenu() {
+    this.setState({
+      showTimeMenu: false
+    });
+  }
+
+  changeTimeFormat() {
+    this.setState({
+      showFullHour: !this.state.showFullHour
+    });
+  }
+
   render() {
     let hours = this.state.time.getHours();
     let minutes = this.state.time.getMinutes();
+
+    if (!this.state.showFullHour && hours > 12) {
+      hours -= 12;
+    }
 
     if (parseInt(hours) < 10) {
       hours = '0' + hours;
@@ -75,11 +103,35 @@ class Time extends React.Component {
     }
 
     return (
-      <div className="time">
+      <div className="time" onMouseOver={this.showTimeMenu} onMouseOut={this.hideTimeMenu} >
         {hours + ':' + minutes}
+        <TimeMenu showTimeMenu={this.state.showTimeMenu} changeTimeFormat={this.changeTimeFormat} />
       </div>
     );
   }
+}
+
+function TimeMenu(props) {
+  if (props.showTimeMenu) {
+   return (
+    <div className="menu">
+      Menu
+      <ChangeTimeFormat changeTimeFormat={props.changeTimeFormat} />
+    </div>
+   );
+  }
+  
+  return (
+    <div></div>
+  );
+}
+
+function ChangeTimeFormat(props) {
+  return (
+    <div className="changeTimeFormat" onClick={props.changeTimeFormat}>
+      누르면 변경
+    </div>
+  );
 }
 
 class SearchBar extends React.Component {
