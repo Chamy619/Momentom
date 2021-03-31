@@ -18,8 +18,19 @@ code {
   text-align: right;
 }
 
-.time {
-  text-align: center;
+.timeContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.timeContainer .timeType {
+  width: 10rem;
+  height: 100%;
+}
+
+.timeContainer .timeMenu {
+  width: 10rem;
+  height: 100%;
 }
 
 .serachBar {

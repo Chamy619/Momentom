@@ -103,34 +103,58 @@ class Time extends React.Component {
     }
 
     return (
-      <div className="time" onMouseOver={this.showTimeMenu} onMouseOut={this.hideTimeMenu} >
-        {hours + ':' + minutes}
+      <div className="timeContainer" onMouseOver={this.showTimeMenu} onMouseOut={this.hideTimeMenu} >
+        <div className="timeType">선택</div>
+        <div className="time">{hours + ':' + minutes}</div>
         <TimeMenu showTimeMenu={this.state.showTimeMenu} changeTimeFormat={this.changeTimeFormat} />
       </div>
     );
   }
 }
 
-function TimeMenu(props) {
-  if (props.showTimeMenu) {
-   return (
-    <div className="menu">
-      Menu
-      <ChangeTimeFormat changeTimeFormat={props.changeTimeFormat} />
-    </div>
-   );
+class TimeMenu extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showMenu: false
+    };
+
+    this.clickMenu = this.clickMenu.bind(this);
   }
-  
-  return (
-    <div></div>
-  );
+
+  clickMenu() {
+    this.setState({
+      showMenu: !this.state.showMenu
+    });
+  }
+
+  render() {
+    let menu = '';
+    let changeTimeFormat = '';
+
+    if (this.props.showTimeMenu) {
+      menu = 'Menu';
+    }
+
+    if (this.state.showMenu) {
+      changeTimeFormat = <ChangeTimeFormat changeTimeFormat={this.props.changeTimeFormat} />
+    }
+
+    return (
+      <div className="timeMenu" showMenu={this.state.showMenu} onClick={this.clickMenu}>
+        {menu}
+        {changeTimeFormat}
+      </div>
+    );
+  }
 }
 
 function ChangeTimeFormat(props) {
   return (
-    <div className="changeTimeFormat" onClick={props.changeTimeFormat}>
-      누르면 변경
-    </div>
+    <ul className="changeTimeFormat" onClick={props.changeTimeFormat}>
+      <li>누르면 변경</li>
+    </ul>
   );
 }
 
