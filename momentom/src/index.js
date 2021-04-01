@@ -195,7 +195,7 @@ class SearchBar extends React.Component {
 
 function Lists(props) {
   return (
-    <div>
+    <div className="listContainer">
       <TodoList todoList={props.todoList} removeTodo={props.removeTodo} />
       <DoneList doneList={props.doneList} removeTodo={props.removeTodo} addDone={props.addDone} removeDone={props.removeDone} />
     </div>
