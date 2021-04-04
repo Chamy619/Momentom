@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Input from '@material-ui/core/Input';
+import {MdDehaze} from "react-icons/md"
 
 class Weather extends React.Component {
   constructor(props) {
@@ -52,12 +53,14 @@ class Time extends React.Component {
     this.state = {
       time: new Date(),
       showFullHour: true,
-      showTimeMenu: false
+      showTimeMenu: false,
+      clickedTimeMenu: false,
     }
 
     this.changeTimeFormat = this.changeTimeFormat.bind(this);
     this.showTimeMenu = this.showTimeMenu.bind(this);
     this.hideTimeMenu = this.hideTimeMenu.bind(this);
+    this.clickTimeMenu = this.clickTimeMenu.bind(this);
   }
 
   componentDidMount() {
@@ -68,16 +71,25 @@ class Time extends React.Component {
     }, 1000);
   }
 
-  showTimeMenu() {
+  showTimeMenu(event) {
     this.setState({
       showTimeMenu: true
+    });
+    event.stopPropagation();
+  }
+
+  clickTimeMenu() {
+    this.setState({
+      clickedTimeMenu: !this.state.clickedTimeMenu
     });
   }
 
   hideTimeMenu() {
-    this.setState({
-      showTimeMenu: false
-    });
+    if (!this.state.clickedTimeMenu) {
+      this.setState({
+        showTimeMenu: false
+      });
+    }
   }
 
   changeTimeFormat() {
@@ -103,10 +115,10 @@ class Time extends React.Component {
     }
 
     return (
-      <div className="timeContainer" onMouseOver={this.showTimeMenu} onMouseOut={this.hideTimeMenu} >
+      <div className="timeContainer" onMouseOver={this.showTimeMenu} onMouseLeave={this.hideTimeMenu} >
         <div className="timeType">선택</div>
         <div className="time">{hours + ':' + minutes}</div>
-        <TimeMenu showTimeMenu={this.state.showTimeMenu} changeTimeFormat={this.changeTimeFormat} />
+        <TimeMenu clickTimeMenu={this.clickTimeMenu} showTimeMenu={this.state.showTimeMenu} changeTimeFormat={this.changeTimeFormat} />
       </div>
     );
   }
@@ -127,6 +139,7 @@ class TimeMenu extends React.Component {
     this.setState({
       showMenu: !this.state.showMenu
     });
+    this.props.clickTimeMenu();
   }
 
   render() {
@@ -134,7 +147,11 @@ class TimeMenu extends React.Component {
     let changeTimeFormat = '';
 
     if (this.props.showTimeMenu) {
-      menu = 'Menu';
+      menu = (
+        <div className="iconCover" onClick={this.clickMenu}>
+          <MdDehaze />
+        </div>
+      );
     }
 
     if (this.state.showMenu) {
@@ -142,7 +159,7 @@ class TimeMenu extends React.Component {
     }
 
     return (
-      <div className="timeMenu" showMenu={this.state.showMenu} onClick={this.clickMenu}>
+      <div className="timeMenu">
         {menu}
         {changeTimeFormat}
       </div>

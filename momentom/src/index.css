@@ -84,3 +84,13 @@ code {
   cursor: pointer;
   background-color: rgba(254, 254, 240, 0.3);
 }
+
+.iconCover {
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+}
+
+.iconCover:hover {
+  background-color: rgba(254, 254, 240, 0.3);
+}
