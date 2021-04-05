@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Input from '@material-ui/core/Input';
-import {MdDehaze} from "react-icons/md"
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Switch from '@material-ui/core/Switch';
+// import AddIcon from '@material-ui/icons/Add';
+// import {MdDehaze} from "react-icons/md"
 
 class Weather extends React.Component {
   constructor(props) {
@@ -15,26 +19,28 @@ class Weather extends React.Component {
   }
 
   componentDidMount() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        fetch(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?input_coord=WGS84&output_coord=WGS84&y=${latitude}&x=${longitude}`, {
-          headers: {
-            Authorization: 'KakaoAK d9a42fd2b9cf0e46f42c6d65a28d793b'
-          }
-        })
-        .then(response => response.json())
-        .then(geoData => {
-          if (geoData.documents) {
-            this.setState({
-              loc: geoData.documents[1].address_name
-            });
-          }
-          
+    setInterval(() => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          fetch(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?input_coord=WGS84&output_coord=WGS84&y=${latitude}&x=${longitude}`, {
+            headers: {
+              Authorization: 'KakaoAK d9a42fd2b9cf0e46f42c6d65a28d793b'
+            }
+          })
+          .then(response => response.json())
+          .then(geoData => {
+            if (geoData.documents) {
+              this.setState({
+                loc: geoData.documents[1].address_name
+              });
+            }
+            
+          });
         });
-      });
-    }
+      }
+    }, 300000); 
   }
 
   render() {
@@ -118,7 +124,7 @@ class Time extends React.Component {
       <div className="timeContainer" onMouseOver={this.showTimeMenu} onMouseLeave={this.hideTimeMenu} >
         <div className="timeType">선택</div>
         <div className="time">{hours + ':' + minutes}</div>
-        <TimeMenu clickTimeMenu={this.clickTimeMenu} showTimeMenu={this.state.showTimeMenu} changeTimeFormat={this.changeTimeFormat} />
+        <TimeMenu clickTimeMenu={this.clickTimeMenu} showTimeMenu={this.state.showTimeMenu} changeTimeFormat={this.changeTimeFormat} showFullHour={this.state.showFullHour} />
       </div>
     );
   }
@@ -149,13 +155,15 @@ class TimeMenu extends React.Component {
     if (this.props.showTimeMenu) {
       menu = (
         <div className="iconCover" onClick={this.clickMenu}>
-          <MdDehaze />
+          <Fab size="small" color="secondary" aria-label="add">
+            <AddIcon />
+          </Fab>
         </div>
       );
     }
 
     if (this.state.showMenu) {
-      changeTimeFormat = <ChangeTimeFormat changeTimeFormat={this.props.changeTimeFormat} />
+      changeTimeFormat = <ChangeTimeFormat changeTimeFormat={this.props.changeTimeFormat} showFullHour={this.props.showFullHour} />
     }
 
     return (
@@ -169,8 +177,8 @@ class TimeMenu extends React.Component {
 
 function ChangeTimeFormat(props) {
   return (
-    <ul className="changeTimeFormat" onClick={props.changeTimeFormat}>
-      <li>누르면 변경</li>
+    <ul className="changeTimeFormat">
+      <li><Switch checked={props.showFullHour} onChange={props.changeTimeFormat} /></li>
     </ul>
   );
 }
