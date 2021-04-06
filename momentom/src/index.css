@@ -41,8 +41,14 @@ code {
 
 .timeContainer .timeMenu {
   width: 10rem;
-  height: 100%;
   text-align: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.timeContainer .time {
+  font-size: 1050%;
+  color: #fff;
 }
 
 .serachBar {
