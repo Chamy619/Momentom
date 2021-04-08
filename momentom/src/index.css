@@ -44,11 +44,22 @@ code {
   text-align: center;
   align-items: center;
   display: inline-flex;
+  position: relative;
 }
 
 .timeContainer .time {
   font-size: 1050%;
   color: #fff;
+}
+
+.timeContainer .changeTimeFormat {
+  list-style: none;
+  position: absolute;
+  top: 140px;
+  right: -25px;
+  padding-left: 10px;
+  background-color: #FFF;
+  width: 165px;
 }
 
 .serachBar {

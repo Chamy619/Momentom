@@ -29,18 +29,18 @@ class Weather extends React.Component {
               Authorization: 'KakaoAK d9a42fd2b9cf0e46f42c6d65a28d793b'
             }
           })
-          .then(response => response.json())
-          .then(geoData => {
-            if (geoData.documents) {
-              this.setState({
-                loc: geoData.documents[1].address_name
-              });
-            }
-            
-          });
+            .then(response => response.json())
+            .then(geoData => {
+              if (geoData.documents) {
+                this.setState({
+                  loc: geoData.documents[1].address_name
+                });
+              }
+
+            });
         });
       }
-    }, 300000); 
+    }, 300000);
   }
 
   render() {
@@ -50,7 +50,7 @@ class Weather extends React.Component {
         날씨 자리</span>
       </div>
     );
-  } 
+  }
 }
 
 class Time extends React.Component {
@@ -178,7 +178,7 @@ class TimeMenu extends React.Component {
 function ChangeTimeFormat(props) {
   return (
     <ul className="changeTimeFormat">
-      <li><Switch checked={props.showFullHour} onChange={props.changeTimeFormat} /></li>
+      <li>24-hour clock <Switch checked={props.showFullHour} onChange={props.changeTimeFormat} /></li>
     </ul>
   );
 }
@@ -212,7 +212,7 @@ class SearchBar extends React.Component {
   render() {
     return (
       <form className="searchBar" onSubmit={this.handleSubmit}>
-        <Input placeholder="Enter TODO" type="text" fullWidth={true} inputProps={{style: {textAlign: 'center'}}} value={this.state.inputValue} onChange={this.handleChange} />
+        <Input placeholder="Enter TODO" type="text" fullWidth={true} inputProps={{ style: { textAlign: 'center' } }} value={this.state.inputValue} onChange={this.handleChange} />
       </form>
     );
   }
@@ -234,7 +234,7 @@ function TodoList(props) {
       todoList.push(<Todo key={todo} todo={todo} removeTodo={props.removeTodo} />);
     });
   }
-  
+
   return (
     <div className="listBox todoList">
       <h3>Todo List</h3>
@@ -301,9 +301,9 @@ class DoneList extends React.Component {
 
     return (
       <div className="listBox doneList" droppable="true" onDrop={this.dropEvent} onDragOver={this.dragOver}>
-      <h3>Done List</h3>
-      {doneList}
-    </div>
+        <h3>Done List</h3>
+        {doneList}
+      </div>
     );
   }
 }
@@ -335,11 +335,11 @@ class Momentum extends React.Component {
     this.removeTodo = this.removeTodo.bind(this);
     this.addDone = this.addDone.bind(this);
     this.removeDone = this.removeDone.bind(this);
-  } 
+  }
 
   handleSubmit(value) {
     const todoList = this.state.todoList;
-    
+
     if (todoList.indexOf(value) === -1) {
       todoList.push(value);
       this.setState({
@@ -380,13 +380,13 @@ class Momentum extends React.Component {
 
   render() {
     const alreadyExistMessage = this.state.alreadyExist ? '이미 존재합니다' : '';
-    return(
+    return (
       <div className="momentum">
         <Weather />
         <Time />
-        <SearchBar handleSubmit={this.handleSubmit}/>
+        <SearchBar handleSubmit={this.handleSubmit} />
         <span className="alertMessage">{alreadyExistMessage}</span>
-        <Lists todoList={this.state.todoList} doneList={this.state.doneList} removeTodo={this.removeTodo} addDone={this.addDone} removeDone={this.removeDone} />    
+        <Lists todoList={this.state.todoList} doneList={this.state.doneList} removeTodo={this.removeTodo} addDone={this.addDone} removeDone={this.removeDone} />
       </div>
     )
   }
