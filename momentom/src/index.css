@@ -54,11 +54,27 @@ code {
 
 .timeContainer .changeTimeFormat {
   list-style: none;
-  position: absolute;
-  top: 140px;
-  right: -25px;
+  position: relative;
+  top: 75px;
+  right: 15px;
   padding-left: 10px;
   background-color: #FFF;
+  width: 165px;
+  border-radius: 5px;
+}
+
+.timeContainer .changeTimeFormat::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 13%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #FFF transparent;
+}
+
+.timeContainer .changeTimeFormat li {
   width: 165px;
 }
 
