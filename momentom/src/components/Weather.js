@@ -17,15 +17,15 @@ class Weather extends React.Component {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
                 fetch(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?input_coord=WGS84&output_coord=WGS84&y=${latitude}&x=${longitude}`, {
-                    header: {
-                        Authorization: 'KakaoAK d9a42fd2b9cf0e46f42c6d65a28d793b'
+                    headers: {
+                        'Authorization': 'KakaoAK d9a42fd2b9cf0e46f42c6d65a28d793b'
                     }
                 })
                     .then(response => response.json())
                     .then(geoData => {
                         if (geoData.documents) {
                             this.setState({
-                                loc: geoData.documents[1].address_name
+                                loc: geoData.documents[1].region_2depth_name
                             });
                         }
                     })
@@ -38,7 +38,7 @@ class Weather extends React.Component {
 
     componentDidMount() {
         this.getLocation();
-        setInterval(this.getLocation(), 300000);
+        setInterval(this.getLocation, 300000);
     }
 
     render() {
