@@ -30,7 +30,7 @@ class SearchBar extends React.Component {
     render() {
         return (
             <form className="searchBar" onSubmit={this.handleSubmit}>
-                <Input placeholder="Enter TODO" type="text" fullWidth={true} inputProps={{ style: { textAlign: 'center' } }} value={this.state.inputValue} onChange={this.handleChange} />
+                <Input placeholder="Enter TODO" type="text" fullWidth={true} inputProps={{ style: { textAlign: 'center', color: 'white', fontSize: '40px' } }} value={this.state.inputValue} onChange={this.handleChange} />
             </form>
         );
     }
