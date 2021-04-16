@@ -1,4 +1,6 @@
 import React from 'react';
+import { WiCloud } from 'react-icons/wi';
+import { WiDaySunny } from 'react-icons/wi';
 
 class Weather extends React.Component {
     constructor(props) {
@@ -14,6 +16,7 @@ class Weather extends React.Component {
         this.getLocation = this.getLocation.bind(this);
         this.getLocal = this.getLocal.bind(this);
         this.getWeather = this.getWeather.bind(this);
+        this.getWeatherIcon = this.getWeatherIcon.bind(this);
     }
 
     getLocation() {
@@ -70,17 +73,40 @@ class Weather extends React.Component {
         }
     }
 
+    getWeatherIcon() {
+        let weatherIcon = '';
+
+        switch (this.state.weather) {
+            case 'Cloud':
+                weatherIcon = <WiCloud color={'white'} size={'100px'} />;
+                break;
+            case 'Clear':
+                weatherIcon = <WiDaySunny color={'white'} size={'100px'} />;
+                break;
+            default:
+                weatherIcon = '';
+                break;
+        }
+
+        return weatherIcon;
+    }
+
     componentDidMount() {
         this.getLocation();
         setInterval(this.getLocation, 300000);
     }
 
     render() {
+        let weather = this.getWeatherIcon();
+        if (!weather) {
+            weather = this.state.weather;
+        }
+
         return (
             <div className="weather">
                 <span>
                     {this.state.loc} <br />
-                    {this.state.weather}
+                    {weather}
                 </span>
             </div>
         );
