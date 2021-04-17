@@ -1,6 +1,7 @@
 import React from 'react';
 import { WiCloud } from 'react-icons/wi';
 import { WiDaySunny } from 'react-icons/wi';
+import { WiRain } from 'react-icons/wi';
 
 class Weather extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class Weather extends React.Component {
             loc: '위치를 확인할 수 없습니다.',
             latitude: '',
             longitude: '',
-            weather: ''
+            weather: '',
+            temperature: ''
         }
 
         this.getLocation = this.getLocation.bind(this);
@@ -64,7 +66,8 @@ class Weather extends React.Component {
                 .then(response => response.json())
                 .then(weatherData => {
                     this.setState({
-                        weather: weatherData.weather[0].main
+                        weather: weatherData.weather[0].main,
+                        temperature: weatherData.main.temp_min + '˚'
                     });
                 })
                 .catch(error => {
@@ -82,6 +85,9 @@ class Weather extends React.Component {
                 break;
             case 'Clear':
                 weatherIcon = <WiDaySunny color={'white'} size={'100px'} />;
+                break;
+            case 'Rain':
+                weatherIcon = <WiRain color={'white'} size={'100px'} />;
                 break;
             default:
                 weatherIcon = '';
@@ -106,7 +112,7 @@ class Weather extends React.Component {
             <div className="weather">
                 <span>
                     {this.state.loc} <br />
-                    {weather}
+                    {weather} {this.state.temperature}
                 </span>
             </div>
         );
