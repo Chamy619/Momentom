@@ -1,4 +1,7 @@
 import React from 'react';
+
+import getApiKey from '../config.js';
+
 import { WiCloud } from 'react-icons/wi';
 import { WiDaySunny } from 'react-icons/wi';
 import { WiRain } from 'react-icons/wi';
@@ -40,9 +43,10 @@ class Weather extends React.Component {
     getLocal() {
         const lat = this.state.latitude;
         const lon = this.state.longitude;
+        const kakaoApiKey = getApiKey('kakao');
         fetch(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?input_coord=WGS84&output_coord=WGS84&y=${lat}&x=${lon}`, {
             headers: {
-                'Authorization': 'KakaoAK d9a42fd2b9cf0e46f42c6d65a28d793b'
+                'Authorization': `KakaoAK ${kakaoApiKey}`
             }
         })
             .then(response => response.json())
@@ -61,8 +65,9 @@ class Weather extends React.Component {
     getWeather() {
         const lat = this.state.latitude;
         const lon = this.state.longitude;
+        const weatherApiKey = getApiKey('weather');
         if (lat && lon) {
-            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=cf94f6ea0c9b381575a0c1c2c9bb75b9&units=metric`)
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric`)
                 .then(response => response.json())
                 .then(weatherData => {
                     this.setState({
