@@ -26,6 +26,12 @@ code {
 
 .weather {
   text-align: right;
+  font-size: 2.5rem;
+  color: #FFF;
+}
+
+.weather > div > svg {
+  margin-bottom: -0.4rem;
 }
 
 .timeContainer {
@@ -48,7 +54,7 @@ code {
 }
 
 .timeContainer .time {
-  font-size: 1050%;
+  font-size: 10rem;
   color: #fff;
 }
 

@@ -67,6 +67,20 @@ class Momentum extends React.Component {
     });
   }
 
+  // clickBackground() {
+  //   console.log('배경 클릭!');
+  //   this.setState({
+  //     showTimeMenu: false
+  //   });
+  // }
+
+  // clickTimeMenu() {
+  //   console.log('버튼 클릭!!');
+  //   this.setState({
+  //     showTimeMenu: 
+  //   })
+  // }
+
   render() {
     const alreadyExistMessage = this.state.alreadyExist ? '이미 존재합니다' : '';
     return (

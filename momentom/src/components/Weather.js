@@ -86,13 +86,13 @@ class Weather extends React.Component {
 
         switch (this.state.weather) {
             case 'Cloud':
-                weatherIcon = <WiCloud color={'white'} size={'100px'} />;
+                weatherIcon = <WiCloud size={'2.5rem'} />;
                 break;
             case 'Clear':
-                weatherIcon = <WiDaySunny color={'white'} size={'100px'} />;
+                weatherIcon = <WiDaySunny size={'2.5rem'} />;
                 break;
             case 'Rain':
-                weatherIcon = <WiRain color={'white'} size={'100px'} />;
+                weatherIcon = <WiRain size={'2.5rem'} />;
                 break;
             default:
                 weatherIcon = '';
@@ -115,10 +115,12 @@ class Weather extends React.Component {
 
         return (
             <div className="weather">
-                <span>
-                    {this.state.loc} <br />
+                <div>
+                    {this.state.loc}
+                </div>
+                <div>
                     {weather} {this.state.temperature}
-                </span>
+                </div>
             </div>
         );
     }
