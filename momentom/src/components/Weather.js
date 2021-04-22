@@ -85,7 +85,7 @@ class Weather extends React.Component {
         let weatherIcon = '';
 
         switch (this.state.weather) {
-            case 'Cloud':
+            case 'Clouds':
                 weatherIcon = <WiCloud size={'2.5rem'} />;
                 break;
             case 'Clear':
