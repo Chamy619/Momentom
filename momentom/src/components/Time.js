@@ -72,7 +72,7 @@ class Time extends React.Component {
 
         return (
             <div className="timeContainer" onMouseOver={this.showTimeMenu} onMouseLeave={this.hideTimeMenu} >
-                <div className="timeType">선택</div>
+                <div className="timeType"></div>
                 <div className="time">{hours + ':' + minutes}</div>
                 <TimeMenu clickTimeMenu={this.clickTimeMenu} showTimeMenu={this.state.showTimeMenu} changeTimeFormat={this.changeTimeFormat} showFullHour={this.state.showFullHour} />
             </div>
