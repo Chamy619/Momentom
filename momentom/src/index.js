@@ -3,11 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+import { createStore } from 'redux';
 
 import Weather from './components/Weather.js';
 import Time from './components/Time.js';
 import SearchBar from './components/SearchBar.js';
 import Lists from './components/Lists.js';
+
+function counterReducer(state = { value: 0 }, action) {
+  switch (action.type) {
+    case 'counter/incremented':
+      return { value: state.value + 1 };
+    case 'counter/decremented':
+      return { value: state.value - 1 };
+    default:
+      return state;
+  }
+}
+
+let store = createStore(counterReducer);
+
+store.subscribe(() => console.log(store.getState()));
+
+store.dispatch({ type: 'counter/incremented' });
+store.dispatch({ type: 'counter/incremented' });
+store.dispatch({ type: 'counter/decremented' });
 
 class Momentum extends React.Component {
   constructor(props) {
