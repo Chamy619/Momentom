@@ -3,6 +3,8 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Switch from '@material-ui/core/Switch';
 
+import store from '../store.js';
+
 class Time extends React.Component {
     constructor(props) {
         super(props);
@@ -25,12 +27,20 @@ class Time extends React.Component {
                 time: new Date()
             })
         }, 1000);
+
+        store.subscribe(() => {
+            this.setState({
+                showTimeMenu: store.getState().show
+            });
+            //console.log(store.getState());
+        })
     }
 
     showTimeMenu(event) {
         this.setState({
             showTimeMenu: true
         });
+        store.dispatch({ type: 'mouseOver' });
         event.stopPropagation();
     }
 
@@ -41,17 +51,18 @@ class Time extends React.Component {
     }
 
     hideTimeMenu() {
-        if (!this.state.clickedTimeMenu) {
-            this.setState({
-                showTimeMenu: false
-            });
+        console.log('LEAVE!!');
+        if (!store.getState().showMenu) {
+            store.dispatch({ type: 'mouseLeave' });
         }
     }
 
-    changeTimeFormat() {
+    changeTimeFormat(event) {
+        event.stopPropagation();
         this.setState({
             showFullHour: !this.state.showFullHour
         });
+        store.dispatch({ type: 'menuClick' });
     }
 
     render() {
@@ -84,17 +95,12 @@ class TimeMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            showMenu: false
-        };
-
         this.clickMenu = this.clickMenu.bind(this);
     }
 
-    clickMenu() {
-        this.setState({
-            showMenu: !this.state.showMenu
-        });
+    clickMenu(event) {
+        event.stopPropagation();
+        store.dispatch({ type: 'menuClick' });
         this.props.clickTimeMenu();
     }
 
@@ -112,7 +118,7 @@ class TimeMenu extends React.Component {
             );
         }
 
-        if (this.state.showMenu) {
+        if (store.getState().show && store.getState().showMenu) {
             changeTimeFormat = <ChangeTimeFormat changeTimeFormat={this.props.changeTimeFormat} showFullHour={this.props.showFullHour} />
         }
 
