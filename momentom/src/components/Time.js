@@ -32,7 +32,6 @@ class Time extends React.Component {
             this.setState({
                 showTimeMenu: store.getState().show
             });
-            //console.log(store.getState());
         })
     }
 
@@ -51,7 +50,6 @@ class Time extends React.Component {
     }
 
     hideTimeMenu() {
-        console.log('LEAVE!!');
         if (!store.getState().showMenu) {
             store.dispatch({ type: 'mouseLeave' });
         }

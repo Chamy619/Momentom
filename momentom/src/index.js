@@ -10,8 +10,6 @@ import Lists from './components/Lists.js';
 
 import store from './store.js';
 
-store.subscribe(() => console.log(store.getState()));
-
 class Momentum extends React.Component {
   constructor(props) {
     super(props);
